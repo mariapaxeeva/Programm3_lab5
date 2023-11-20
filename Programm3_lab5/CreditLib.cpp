@@ -22,17 +22,6 @@ bool ProtectInputString(string* str)
 	return true;
 }
 
-//bool ProtectInputUnsigned(int* num, string message)
-//{
-//	cout << message << endl;
-//	while ((scanf("%d", num) < 1) || (*num < 0))
-//	{
-//		while (getchar() != '\n');
-//		cout << message << endl;
-//	}
-//	return false;
-//}
-
 bool ProtectInputUnsigned(int* num, string message)
 {
 	string number;
@@ -59,11 +48,24 @@ bool ProtectInputUnsigned(int* num, string message)
 
 bool ProtectInputRate(float* num, string message)
 {
-	cout << message << endl;
-	while ((scanf("%f", num) < 1) || (*num <= 0))
-	{
-		while (getchar() != '\n');
-		cout << message << endl;
+	string number;
+	while (true) {
+		try
+		{
+			cout << message << endl;
+			cin >> number;
+			for (char c : number) {
+				if ((!isdigit(c)) && !(c == '.'))
+					throw "Ошибка! Некорректный ввод.";
+			}
+			*num = stof(number);
+			break;
+		}
+		catch (const char* error_message)
+		{
+			cin.clear();
+			cout << error_message << endl;
+		}
 	}
 	return false;
 }
@@ -86,6 +88,7 @@ Borrower InputBorrower()
 	ProtectInputUnsigned(&profitValue, "Введите сумму дохода заёмщика в месяц:");
 	ProtectInputUnsigned(&repay, "Введите количество ранее погашенных кредитов:");
 	ProtectInputUnsigned(&debtValue, "Введите сумму имеющейся задолженности:");
+	cin.clear();
 	do
 	{
 		printf("Наличие судимости (- - нет, + - есть):\n");
