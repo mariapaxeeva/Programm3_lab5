@@ -33,23 +33,6 @@ public class Borrower {
         return num;
     }
 
-    public float ProtectInputRate(String message)
-    {
-        Scanner in = new Scanner(System.in);
-        float num;
-        while (true) {  
-            System.out.println(message);  
-            try {  
-                num = Float.parseFloat(in.nextLine());
-                if (num >= 0)
-                    break;
-            } catch (Exception e) {  
-                System.out.println("Неверный формат ввода! Попробуйте ещё раз.");  
-            }  
-        }
-        return num;
-    }
-
     public Borrower InputBorrower()
     {
         String nameValue;

@@ -5,7 +5,7 @@ public class Credit
 	Lender lenderCredit;
 	Borrower borrowerCredit;
 	int amount;
-	float rate;
+	double rate;
 	int period;
 	String currency;
 
@@ -27,7 +27,7 @@ public class Credit
         String nameGuarant = "";
         int profitGuarant = 0;
         int amountValue = 0;
-        float rateValue = 0;
+        double rateValue = 0;
         int periodValue = 0;
         String cur = "";
         Scanner in = new Scanner(System.in);
@@ -88,13 +88,13 @@ public class Credit
 
     public void PercentCalculate()
     {
-        float rezult = this.amount * this.rate * this.period / 100;
+        double rezult = this.amount * this.rate * this.period / 100;
         System.out.printf("По кредиту №%d за %d лет сверх суммы потребуется выплатить %g (%s)\n", number, this.period, rezult, this.currency);
     }
 
-    public float CalculateMonthPayment()
+    public double CalculateMonthPayment()
     {
-        float monthPayment = (1 + this.rate / 100) * this.amount / 12;
+        double monthPayment = (1 + this.rate / 100) * this.amount / 12;
         return monthPayment;
     }
 
@@ -105,7 +105,7 @@ public class Credit
         {
             factPeriod = ProtectInputUnsigned("Введите фактический срок погашения кредита:");
         } while (factPeriod >= this.period);
-        float rezult = this.amount * this.rate * factPeriod / 100;
+        double rezult = this.amount * this.rate * factPeriod / 100;
         System.out.printf("По кредиту №%d за %d лет (погасив досрочно за %d лет) сверх суммы потребуется выплатить %g (%s)\n", this.number, this.period, factPeriod, rezult, this.currency);
     }
 
@@ -116,7 +116,7 @@ public class Credit
         boolean conditionProfit = true;
         boolean conditionHistory = true;
         boolean conditionCriminal = true;
-        float monthPayment = CalculateMonthPayment();
+        double monthPayment = CalculateMonthPayment();
         if (this.borrowerCredit.GetAge() < 18)
             conditionAge = false;
         if (this.borrowerCredit.GetProfit() < monthPayment * 3)
@@ -163,20 +163,23 @@ public class Credit
         return num.intValue();
     }
 
-    public float ProtectInputRate(String message)
+    public double ProtectInputRate(String message)
     {
-        Scanner in = new Scanner(System.in);
-        float num;
-        while (true) {  
-            System.out.println(message);  
-            try {  
-                num = Float.parseFloat(in.nextLine());
-                if (num >= 0)
-                    break;
-            } catch (Exception e) {  
-                System.out.println("Неверный формат ввода! Попробуйте ещё раз.");  
-            }  
-        }
+        Scanner scanner = new Scanner(System.in);
+        double num = 0.0;
+        message += "\n";
+        do{
+            System.out.print(message);
+            String rate = scanner.nextLine();
+            char[] rateChars = rate.toCharArray();
+            for(char c: rateChars){
+                if(!(Character.isDigit(c) || c == '.')){
+                    throw new IllegalArgumentException("Ошибка! Некорректный ввод.");
+                }
+            }
+            num = Double.parseDouble(rate);
+            break;
+        }while(true);
         return num;
     }
 
@@ -209,7 +212,7 @@ public class Credit
 		String nameGuarant,
 		int profitGuarant,
 		int amountValue,
-		float rateValue,
+		double rateValue,
 		int periodValue,
 		String cur)
 	{
@@ -229,7 +232,7 @@ public class Credit
 	public int GetAmount() {
 		return amount;
 	}
-	public float GetRate() {
+	public double GetRate() {
 		return rate;
 	}
 	public int GetPeriod() {

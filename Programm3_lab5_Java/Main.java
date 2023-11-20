@@ -35,7 +35,7 @@ public class Main{
         creditTest = creditTest.InputData();
         creditTest.OutData();
 
-        System.out.println("\n" + ++test + ") Динамический массив объектов класса");
+        System.out.println("\n" + ++test + ") Одномерный динамический массив объектов класса");
         ArrayList<Credit> data = new ArrayList<>();
         data.add(credit0);
         data.add(new Credit("банк", "Сбербанк", "Иванов И. И.", 30, 20000, 0, 1000, '-', "Петров П. П.", 45000, 100000, 4.8f, 10,"рубль"));
@@ -44,6 +44,18 @@ public class Main{
             System.out.println(data.get(i).GetPeriod());
 
         data.removeAll(data);
+
+        System.out.println("\n" + ++test + ") Двумерный массив объектов класса");
+        Credit[][] twoData = new Credit[2][2];
+        twoData[0][0] = new Credit(207);
+        twoData[0][1] = new Credit(1890);
+        twoData[1][0] = new Credit(43);
+        twoData[1][1] = new Credit(345);
+
+        for (int i = 0; i < twoData.length; i++)
+            for (int j = 0; j < twoData[i].length; j++)
+                System.out.println(twoData[i][j].GetPeriod());
+
         
         System.out.println("\n" + ++test + ") Обработка строк");
         String exa = "конка";
