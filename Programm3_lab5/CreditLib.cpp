@@ -22,13 +22,37 @@ bool ProtectInputString(string* str)
 	return true;
 }
 
+//bool ProtectInputUnsigned(int* num, string message)
+//{
+//	cout << message << endl;
+//	while ((scanf("%d", num) < 1) || (*num < 0))
+//	{
+//		while (getchar() != '\n');
+//		cout << message << endl;
+//	}
+//	return false;
+//}
+
 bool ProtectInputUnsigned(int* num, string message)
 {
-	cout << message << endl;
-	while ((scanf("%d", num) < 1) || (*num < 0))
-	{
-		while (getchar() != '\n');
-		cout << message << endl;
+	string number;
+	while (true) {
+		try
+		{
+			cout << message << endl;
+			cin >> number;
+			for (char c : number) {
+				if (!isdigit(c))
+					throw "Ошибка! Некорректный ввод.";
+			}
+			*num = stoi(number);
+			break;
+		}
+		catch (const char* error_message)
+		{
+			cin.clear();
+			cout << error_message << endl;
+		}
 	}
 	return false;
 }
