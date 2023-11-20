@@ -24,7 +24,7 @@ int main()
     cout << "\n" << ++test << ") Тест конструктора без параметров" << endl;
     credit0.OutData();
 
-    Credit creditTest(123, "банк", "Сбербанк", "Иванов И. И.", 30, 20000, 0, 1000, '-', "Петров П. П.", 45000, 100000, 4.8, 10, "рубль");
+ /*   Credit creditTest(123, "банк", "Сбербанк", "Иванов И. И.", 30, 20000, 0, 1000, '-', "Петров П. П.", 45000, 100000, 4.8, 10, "рубль");
     cout << "\n" << ++test << ") Тест конструктора со всеми параметрами" << endl;
     creditTest.OutData();
 
@@ -46,22 +46,28 @@ int main()
 
     cout << "\n" << ++test << ") Тест метода для ввода с консоли и вывода в консоль вероятности одобрения кредита" << endl;
     creditTest = creditTest.InputData();
-    creditTest.OutData();
+    creditTest.OutData();*/
 
-    cout << "\n" << ++test << ") Динамический массив объектов класса " << endl;
+    cout << "\n" << ++test << ")  Одномерный динамический массив объектов класса " << endl;
     Credit* data = new Credit[3]{ int(123), int(111), int(1000) };
     for (int i = 0; i < 3; i++)
         cout << data[i].GetNumber() << endl;
 
     delete[] data;
 
-    cout << "\n" << ++test << ") Массив динамических объектов класса " << endl;
+    cout << "\n" << ++test << ") Одномерный массив динамических объектов класса " << endl;
     Credit* dinamicData[3]{ new Credit(207), new Credit(1890), new Credit(43) };
     for (int i = 0; i < 3; i++)
         cout << dinamicData[i]->GetNumber() << endl;
 
     for (int i = 0; i < 3; i++)
         delete dinamicData[i];
+
+    cout << "\n" << ++test << ") Двумерный массив объектов класса " << endl;
+    Credit* TwoData[2][2]{ new Credit(207), new Credit(1890), new Credit(43), new Credit(345) };
+    for (int i = 0; i < 2; i++)
+        for (int j = 0; j < 2; j++)
+            cout << TwoData[i][j]->GetNumber() << endl;
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
